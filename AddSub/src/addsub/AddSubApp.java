@@ -48,14 +48,12 @@ public class AddSubApp extends SingleFrameApplication {
      */
     public static Class queryClass(String str){
       Class m_class;
+
       try {
         m_class = Class.forName(str);
       } catch (Exception e) {
         m_class = null;
       }
-      Method m[] = m_class.getDeclaredMethods();
-      Constructor cons[] = m_class.getConstructors();
-      Field f[] = m_class.getFields();
       return m_class;
     }
 
@@ -65,6 +63,4 @@ public class AddSubApp extends SingleFrameApplication {
     public static String getClassName(String s){
         return className;
     }
-
-
 }

@@ -4,6 +4,7 @@
 
 package addsub;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -11,6 +12,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.*;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -270,10 +272,57 @@ public class AddSubView extends FrameView {
         // final check to see if className textbox matches textbox or not
         if (!this.flds_classname.getText().equals(this.flds_tb.getText())){
             this.flds_tb.setText(this.flds_classname.getText());
+            Class m_class = AddSubApp.queryClass(this.flds_classname.getText());
+            if (m_class != null)
+            {
+              String className = m_class.getName();
+              m = m_class.getDeclaredMethods();
+              cons = m_class.getConstructors();
+              f = m_class.getFields();
 
-            // TODO: update class info
+              String buffer = "";
+              if  (this.btn_constructor.isSelected()){
+                buffer = className.substring(className.lastIndexOf("."));
+                buffer += "( ";
+                buffer += cons.toString();
+                buffer += " ) ";
+                if (m_class.getModifiers() == Modifier.PRIVATE)
+                  buffer += "private";
+                else if (m_class.getModifiers() == Modifier.PUBLIC)
+                  buffer += "public";
+
+                int mod = m_class.getModifiers();
+                buffer += m_class.getModifiers();
+                buffer += m_class.getCanonicalName();
+                this.flds_tb.setText(buffer);
+              }
+              else if (this.btn_fields.isSelected()){
+                buffer += f[0].getName();
+
+              }
+              else if (this.btn_methods.isSelected()){
+                buffer = "";
+                for (int i = 0; i < m.length; i++) {
+                  buffer += m[i].getName() + "(" + ") : " + m[i].getReturnType().getName() + " ";
+                  /* ERROR gettign modifier(33) for pop*/
+                  int modifier = m[i].getModifiers();
+                  
+                  if (modifier == Modifier.PUBLIC)
+                    buffer += "public";
+                  else if (modifier == Modifier.PRIVATE)
+                    buffer += "private";
+                  else if (modifier == Modifier.STATIC)
+                    buffer += "static";
+
+                  buffer += "\n";
+
+                }
+              }
+            }
+
+
         }
-        AddSubApp.queryClass(this.flds_classname.getText());
+
     }//GEN-LAST:event_flds_classnameKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -300,4 +349,9 @@ public class AddSubView extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+    private Method m[];
+    private Constructor cons[];
+    private Field f[];
+
+
 }
