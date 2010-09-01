@@ -102,12 +102,12 @@ public class AddSubView extends FrameView {
 
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        flds_classname = new javax.swing.JTextField();
+        btn_constructor = new javax.swing.JRadioButton();
+        btn_fields = new javax.swing.JRadioButton();
+        btn_methods = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        flds_tb = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -126,32 +126,36 @@ public class AddSubView extends FrameView {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setName("jTextField1"); // NOI18N
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        flds_classname.setText(resourceMap.getString("flds_classname.text")); // NOI18N
+        flds_classname.setName("flds_classname"); // NOI18N
+        flds_classname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                flds_classnameKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                flds_classnameKeyTyped(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText(resourceMap.getString("jRadioButton1.text")); // NOI18N
-        jRadioButton1.setName("jRadioButton1"); // NOI18N
+        buttonGroup1.add(btn_constructor);
+        btn_constructor.setSelected(true);
+        btn_constructor.setText(resourceMap.getString("btn_constructor.text")); // NOI18N
+        btn_constructor.setName("btn_constructor"); // NOI18N
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText(resourceMap.getString("jRadioButton2.text")); // NOI18N
-        jRadioButton2.setName("jRadioButton2"); // NOI18N
+        buttonGroup1.add(btn_fields);
+        btn_fields.setText(resourceMap.getString("btn_fields.text")); // NOI18N
+        btn_fields.setName("btn_fields"); // NOI18N
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText(resourceMap.getString("jRadioButton3.text")); // NOI18N
-        jRadioButton3.setName("jRadioButton3"); // NOI18N
+        buttonGroup1.add(btn_methods);
+        btn_methods.setText(resourceMap.getString("btn_methods.text")); // NOI18N
+        btn_methods.setName("btn_methods"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setName("jTextArea1"); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        flds_tb.setColumns(20);
+        flds_tb.setRows(5);
+        flds_tb.setName("flds_tb"); // NOI18N
+        jScrollPane1.setViewportView(flds_tb);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -160,32 +164,32 @@ public class AddSubView extends FrameView {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
+                    .addComponent(btn_methods)
+                    .addComponent(btn_fields)
+                    .addComponent(btn_constructor)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
+                    .addComponent(flds_classname)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(flds_classname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(btn_constructor)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
+                        .addComponent(btn_fields)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)))
+                        .addComponent(btn_methods)))
                 .addGap(35, 35, 35))
         );
 
@@ -229,7 +233,7 @@ public class AddSubView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -252,20 +256,35 @@ public class AddSubView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void flds_classnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_flds_classnameKeyTyped
         // TODO: query for java class info
-        
-    }//GEN-LAST:event_jTextField1KeyTyped
+        // final check to see if className textbox matches textbox or not
+        if (!this.flds_classname.getText().equals(this.flds_tb.getText())){
+            this.flds_tb.setText(this.flds_classname.getText());
+
+            // TODO: update class info
+        }
+    }//GEN-LAST:event_flds_classnameKeyTyped
+
+    private void flds_classnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_flds_classnameKeyReleased
+        // final check to see if className textbox matches textbox or not
+        if (!this.flds_classname.getText().equals(this.flds_tb.getText())){
+            this.flds_tb.setText(this.flds_classname.getText());
+
+            // TODO: update class info
+        }
+        AddSubApp.queryClass(this.flds_classname.getText());
+    }//GEN-LAST:event_flds_classnameKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btn_constructor;
+    private javax.swing.JRadioButton btn_fields;
+    private javax.swing.JRadioButton btn_methods;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField flds_classname;
+    private javax.swing.JTextArea flds_tb;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;

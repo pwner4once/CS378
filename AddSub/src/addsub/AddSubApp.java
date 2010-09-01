@@ -4,6 +4,7 @@
 
 package addsub;
 
+import java.lang.reflect.*;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -11,8 +12,7 @@ import org.jdesktop.application.SingleFrameApplication;
  * The main class of the application.
  */
 public class AddSubApp extends SingleFrameApplication {
-    Class<?> c; 
-
+    static String className = "";
     /**
      * At startup create and show the main frame of the application.
      */
@@ -46,13 +46,25 @@ public class AddSubApp extends SingleFrameApplication {
     /**
      * Query contents of a Class
      */
-    public Class queryClass(String str){
-        try {
-          c = Class.forName(str);
-        } catch (Exception e) {
-          return null;
-        }
-
-        return c;
+    public static Class queryClass(String str){
+      Class m_class;
+      try {
+        m_class = Class.forName(str);
+      } catch (Exception e) {
+        m_class = null;
+      }
+      Method m[] = m_class.getDeclaredMethods();
+      Constructor cons[] = m_class.getConstructors();
+      Field f[] = m_class.getFields();
+      return m_class;
     }
+
+    public static void setClassName(String s){
+        className = s;
+    }
+    public static String getClassName(String s){
+        return className;
+    }
+
+
 }
