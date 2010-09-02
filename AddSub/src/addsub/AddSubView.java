@@ -12,7 +12,10 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.String;
 import java.lang.reflect.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -23,6 +26,9 @@ import javax.swing.JFrame;
  */
 public class AddSubView extends FrameView {
 
+    String constructors_str = "";
+    String fields_str = "";
+    String methods_str = "";
     public AddSubView(SingleFrameApplication app) {
         super(app);
 
@@ -102,6 +108,8 @@ public class AddSubView extends FrameView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jFrame1 = new javax.swing.JFrame();
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         flds_classname = new javax.swing.JTextField();
@@ -110,17 +118,19 @@ public class AddSubView extends FrameView {
         btn_methods = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         flds_tb = new javax.swing.JTextArea();
-        menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
-        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
-        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
         javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         statusMessageLabel = new javax.swing.JLabel();
         statusAnimationLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+
+        jFrame1.setName("jFrame1"); // NOI18N
+        jFrame1.setResizable(false);
 
         mainPanel.setName("mainPanel"); // NOI18N
 
@@ -143,14 +153,29 @@ public class AddSubView extends FrameView {
         btn_constructor.setSelected(true);
         btn_constructor.setText(resourceMap.getString("btn_constructor.text")); // NOI18N
         btn_constructor.setName("btn_constructor"); // NOI18N
+        btn_constructor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_constructorMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(btn_fields);
         btn_fields.setText(resourceMap.getString("btn_fields.text")); // NOI18N
         btn_fields.setName("btn_fields"); // NOI18N
+        btn_fields.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_fieldsMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(btn_methods);
         btn_methods.setText(resourceMap.getString("btn_methods.text")); // NOI18N
         btn_methods.setName("btn_methods"); // NOI18N
+        btn_methods.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_methodsMouseClicked(evt);
+            }
+        });
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -166,33 +191,73 @@ public class AddSubView extends FrameView {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_methods)
-                    .addComponent(btn_fields)
-                    .addComponent(btn_constructor)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(flds_classname)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(flds_classname, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_fields)
+                            .addComponent(btn_constructor)
+                            .addComponent(btn_methods))
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(flds_classname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addComponent(flds_classname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
                         .addComponent(btn_constructor)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_fields)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_methods)))
-                .addGap(35, 35, 35))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_methods))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75))
+        );
+
+        statusPanel.setName("statusPanel"); // NOI18N
+
+        statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
+
+        statusMessageLabel.setName("statusMessageLabel"); // NOI18N
+
+        statusAnimationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusAnimationLabel.setName("statusAnimationLabel"); // NOI18N
+
+        progressBar.setName("progressBar"); // NOI18N
+
+        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
+        statusPanel.setLayout(statusPanelLayout);
+        statusPanelLayout.setHorizontalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGroup(statusPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusMessageLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusAnimationLabel)
+                .addContainerGap())
+        );
+        statusPanelLayout.setVerticalGroup(
+            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statusPanelLayout.createSequentialGroup()
+                .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusMessageLabel)
+                    .addComponent(statusAnimationLabel)
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -216,41 +281,37 @@ public class AddSubView extends FrameView {
 
         menuBar.add(helpMenu);
 
-        statusPanel.setName("statusPanel"); // NOI18N
+        jFrame1.setJMenuBar(menuBar);
 
-        statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
-
-        statusMessageLabel.setName("statusMessageLabel"); // NOI18N
-
-        statusAnimationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        statusAnimationLabel.setName("statusAnimationLabel"); // NOI18N
-
-        progressBar.setName("progressBar"); // NOI18N
-
-        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
-        statusPanel.setLayout(statusPanelLayout);
-        statusPanelLayout.setHorizontalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-            .addGroup(statusPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusAnimationLabel)
-                .addContainerGap())
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        statusPanelLayout.setVerticalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(statusPanelLayout.createSequentialGroup()
-                .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusMessageLabel)
-                    .addComponent(statusAnimationLabel)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         setComponent(mainPanel);
@@ -275,55 +336,99 @@ public class AddSubView extends FrameView {
             Class m_class = AddSubApp.queryClass(this.flds_classname.getText());
             if (m_class != null)
             {
+              ArrayList<String> list = new ArrayList<String>();
               String className = m_class.getName();
               m = m_class.getDeclaredMethods();
-              cons = m_class.getConstructors();
-              f = m_class.getFields();
+              cons = m_class.getDeclaredConstructors();
+              f = m_class.getDeclaredFields();
 
-              String buffer = "";
-              if  (this.btn_constructor.isSelected()){
-                buffer = className.substring(className.lastIndexOf("."));
-                buffer += "( ";
-                buffer += cons.toString();
-                buffer += " ) ";
-                if (m_class.getModifiers() == Modifier.PRIVATE)
-                  buffer += "private";
-                else if (m_class.getModifiers() == Modifier.PUBLIC)
-                  buffer += "public";
+              constructors_str = className.substring(className.lastIndexOf(".")+1);
+              constructors_str += "( ";
+              for (int i = 0; i < cons.length; i++) {
+                Class[] params = cons[i].getParameterTypes();
+                if (params.length > 0 ){
+                    for (int j = 0; j < params.length; j++) {
+                        Field fields[] = params[j].getDeclaredFields();
+                        for (int k = 0; k < fields.length; k++) {
+                            constructors_str += fields[k].getName();   
+                        }
 
-                int mod = m_class.getModifiers();
-                buffer += m_class.getModifiers();
-                buffer += m_class.getCanonicalName();
-                this.flds_tb.setText(buffer);
-              }
-              else if (this.btn_fields.isSelected()){
-                buffer += f[0].getName();
-
-              }
-              else if (this.btn_methods.isSelected()){
-                buffer = "";
-                for (int i = 0; i < m.length; i++) {
-                  buffer += m[i].getName() + "(" + ") : " + m[i].getReturnType().getName() + " ";
-                  /* ERROR gettign modifier(33) for pop*/
-                  int modifier = m[i].getModifiers();
-                  
-                  if (modifier == Modifier.PUBLIC)
-                    buffer += "public";
-                  else if (modifier == Modifier.PRIVATE)
-                    buffer += "private";
-                  else if (modifier == Modifier.STATIC)
-                    buffer += "static";
-
-                  buffer += "\n";
-
+                    }
                 }
               }
+              constructors_str += " ) ";
+              if (m_class.getModifiers() == Modifier.PRIVATE)
+                constructors_str += "private";
+              else if (m_class.getModifiers() == Modifier.PUBLIC)
+                constructors_str += "public";
+
+              list.clear();
+              for (int i = 0; i < f.length; i++) {
+                Field field = f[i];
+                fields_str = field.getName() + " : " + field.getType();
+                if (Modifier.isProtected(field.getModifiers())){ /* nothing */ }
+                if (Modifier.isStatic(field.getModifiers())){ fields_str += " static";}
+                if (Modifier.isPublic(field.getModifiers())){ fields_str += " public";}
+                if (Modifier.isPrivate(field.getModifiers())){ fields_str += " private"; }
+                list.add(fields_str);
+              }
+              Collections.sort(list);
+              fields_str = "";
+              for (int j = 0; j < list.size(); j++) {
+                fields_str += list.get(j);
+              }
+              
+              list.clear();
+              for (int k = 0; k < m.length; k++) {
+                Method method = m[k];
+                method.getdeclare
+                methods_str = m[k].getName() + "(" + ") : " + m[k].getReturnType().getName() + " ";
+
+                if (Modifier.isProtected(method.getModifiers())){ /* nothing */ }
+                if (Modifier.isStatic(method.getModifiers())){ methods_str += " static";}
+                if (Modifier.isPublic(method.getModifiers())){ methods_str += " public";}
+                if (Modifier.isPrivate(method.getModifiers())){ methods_str += " private";}
+                 methods_str += "\n";
+                 list.add(methods_str);
+              }
+
+              Collections.sort(list);
+              methods_str = "";
+              for (int j = 0; j < list.size(); j++) {
+                methods_str += list.get(j);
+              }
+
+              /* updatint textbox for info display*/
+              if  (this.btn_constructor.isSelected()){
+                this.flds_tb.setText(constructors_str);
+              }
+              else if (this.btn_fields.isSelected()){
+                this.flds_tb.setText(fields_str);
+              }
+              else if (this.btn_methods.isSelected()){
+                this.flds_tb.setText(methods_str);
+              }
+            }else {
+              this.flds_tb.setText("Unable to open " + this.flds_classname.getName());
             }
-
-
         }
 
     }//GEN-LAST:event_flds_classnameKeyReleased
+
+    private void btn_constructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_constructorMouseClicked
+        // set information textbox to display constructor info
+        this.flds_tb.setText(this.constructors_str);
+    }//GEN-LAST:event_btn_constructorMouseClicked
+
+    private void btn_fieldsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_fieldsMouseClicked
+        // set information textbox to display constructor info
+        this.flds_tb.setText(this.fields_str);
+    }//GEN-LAST:event_btn_fieldsMouseClicked
+
+    private void btn_methodsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_methodsMouseClicked
+        // set information textbox to display constructor info
+        this.flds_tb.setText(this.methods_str);
+    }//GEN-LAST:event_btn_methodsMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton btn_constructor;
@@ -332,6 +437,7 @@ public class AddSubView extends FrameView {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField flds_classname;
     private javax.swing.JTextArea flds_tb;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
