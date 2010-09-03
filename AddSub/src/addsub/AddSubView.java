@@ -200,9 +200,9 @@ public class AddSubView extends FrameView {
                 .addGap(15, 15, 15))
               .addComponent(btn_constructor))
             .addGap(18, 18, 18)))
-        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(jScrollPane1)
-          .addComponent(flds_classname, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+          .addComponent(flds_classname, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(94, Short.MAX_VALUE))
     );
     mainPanelLayout.setVerticalGroup(
@@ -222,8 +222,8 @@ public class AddSubView extends FrameView {
             .addComponent(btn_methods))
           .addGroup(mainPanelLayout.createSequentialGroup()
             .addGap(18, 18, 18)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addGap(94, 94, 94))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(30, 30, 30))
     );
 
     statusPanel.setName("statusPanel"); // NOI18N

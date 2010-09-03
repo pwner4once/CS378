@@ -5,8 +5,10 @@
 package addsub;
 
 import java.lang.reflect.*;
+import java.lang.StringBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -127,10 +129,11 @@ public class AddSubApp extends SingleFrameApplication {
           methods_text = method.getName() + "( ";
           Class pvec[] = method.getParameterTypes();
           for (int j = 0; j < pvec.length; j++) {
-            if (j == 0) methods_text += pvec[j].getName();
-            else methods_text += ", " + pvec[j].getName();
+            String name = decode(pvec[j].getName());
+            if (j == 0) methods_text += name;
+            else methods_text += ", " + name;
           }
-          methods_text += " ) : " + method.getReturnType().getName();
+          methods_text += " ) : " + decode(method.getReturnType().getName());
           if (Modifier.isProtected(method.getModifiers())){ /* nothing */ }
           if (Modifier.isStatic(method.getModifiers())){ methods_text += " static";}
           if (Modifier.isPublic(method.getModifiers())){ methods_text += " public";}
@@ -189,4 +192,36 @@ public class AddSubApp extends SingleFrameApplication {
     public static String getMethodsText(){
       return methods_text;
     }
+
+    /**
+     * decode foolish encoding by getName()
+     */
+    public static String decode(String str){
+      int strPos = 0;
+      String encodings[]= {"[Z", "[B", "[C", "[L", "[D", "[F", "[I", "[J", "[S"};
+      String decodings[] = {"boolean[", "byte[", "char[", "", "double[", "float[", "int[", "long[", "short["};
+      StringBuffer strBuf;
+      for (int i = 0; i < encodings.length; i++) {
+
+        while ( (strPos = str.indexOf(encodings[i])) != -1){
+          if (!encodings[i].equals("[L")){
+            strBuf = new StringBuffer(str);
+            strBuf.insert(str.indexOf("["), decodings[i]).toString();
+            strBuf.delete(strPos+decodings[i].length(), strPos+decodings[i].length()+encodings[i].length());
+            str = strBuf.toString();
+          }else{
+            strBuf = new StringBuffer(str);
+            int end = str.indexOf(";", strPos);
+            int start = str.lastIndexOf(".", end);
+            strBuf.insert(strPos, str.substring(start+1, end)+"[");
+            strBuf.delete(strPos+end-start, strPos+end-start+encodings[i].length());
+          }
+          str = strBuf.toString();
+
+        }
+     }
+     if (str.length() >= 0) str = str.replaceAll(Pattern.quote("["), "[]");
+     return str;
+    }
 }
+
