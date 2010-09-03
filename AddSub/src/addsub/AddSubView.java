@@ -25,9 +25,7 @@ import javax.swing.JFrame;
  */
 public class AddSubView extends FrameView {
 
-    String ct_text = "";
-    String fields_text = "";
-    String methods_text = "";
+
     public AddSubView(SingleFrameApplication app) {
         super(app);
 
@@ -313,114 +311,35 @@ public class AddSubView extends FrameView {
     }//GEN-LAST:event_flds_classnameKeyTyped
 
     private void flds_classnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_flds_classnameKeyReleased
-        // final check to see if className textbox matches textbox or not
-        if (!this.flds_classname.getText().equals(this.flds_tb.getText())){
-            //this.flds_tb.setText(this.flds_classname.getText());
-            Class m_class = AddSubApp.queryClass(this.flds_classname.getText());
-            if (m_class != null)
-            {
-              ArrayList<String> list = new ArrayList<String>();
-              String className = m_class.getName();
-              m = m_class.getDeclaredMethods();
-              cons = m_class.getDeclaredConstructors();
-              f = m_class.getDeclaredFields();
-
-              /* constructing textbox display content  for Constructors,
-                 Fields, and Methods */
-              for (int cons_num = 0; cons_num < cons.length; cons_num++) {
-                Constructor constructor = cons[cons_num];
-                ct_text = constructor.getName().substring(constructor.getName().lastIndexOf(".")+1);
-                ct_text += "( ";
-                Class pvec[] = constructor.getParameterTypes();
-                for (int j = 0; j < pvec.length; j++) {
-                  if (j == 0) ct_text += pvec[j];
-                  else ct_text += ", " + pvec[j];
-                }
-                ct_text += " ) ";
-                if(Modifier.isPrivate(m_class.getModifiers()))
-                  ct_text += "private";
-                else if (Modifier.isPublic(m_class.getModifiers()))
-                  ct_text += "public";
-                list.add(ct_text);
-              }
-
-              Collections.sort(list);
-              ct_text = "";
-              for (int j = 0; j < list.size(); j++) {
-                ct_text += list.get(j);
-              }
-
-              list.clear();
-              for (int i = 0; i < f.length; i++) {
-                Field field = f[i];
-                fields_text = field.getName() + " : " + field.getType();
-                if (Modifier.isProtected(field.getModifiers())){ /* nothing */ }
-                if (Modifier.isStatic(field.getModifiers())){ fields_text += " static";}
-                if (Modifier.isPublic(field.getModifiers())){ fields_text += " public";}
-                if (Modifier.isPrivate(field.getModifiers())){ fields_text += " private"; }
-                list.add(fields_text);
-              }
-              
-              Collections.sort(list);
-              fields_text = "";
-              for (int j = 0; j < list.size(); j++) {
-                fields_text += list.get(j);
-              }
-              
-              list.clear();
-              for (int k = 0; k < m.length; k++) {
-                Method method = m[k];
-                methods_text = method.getName() + "( ";
-                Class pvec[] = method.getParameterTypes();
-                for (int j = 0; j < pvec.length; j++) {
-                  if (j == 0) methods_text += pvec[j];
-                  else methods_text += ", " + pvec[j];
-                }
-                methods_text += " ) : " + method.getReturnType().getName() + " ";
-                if (Modifier.isProtected(method.getModifiers())){ /* nothing */ }
-                if (Modifier.isStatic(method.getModifiers())){ methods_text += " static";}
-                if (Modifier.isPublic(method.getModifiers())){ methods_text += " public";}
-                if (Modifier.isPrivate(method.getModifiers())){ methods_text += " private";}
-                 methods_text += "\n";
-                 list.add(methods_text);
-              }
-
-              Collections.sort(list);
-              methods_text = "";
-              for (int j = 0; j < list.size(); j++) {
-                methods_text += list.get(j);
-              }
-
-              /* updatint textbox for info display*/
-              if  (this.btn_constructor.isSelected()){
-                this.flds_tb.setText(ct_text);
-              }
-              else if (this.btn_fields.isSelected()){
-                this.flds_tb.setText(fields_text);
-              }
-              else if (this.btn_methods.isSelected()){
-                this.flds_tb.setText(methods_text);
-              }
-            }else {
-              this.flds_tb.setText("Unable to open " + this.flds_classname.getText());
-            }
-        }
-
+      // final check to see if className textbox matches textbox or not
+      if (!this.flds_classname.getText().equals(this.flds_tb.getText())){
+          AddSubApp.setClassName(this.flds_classname.getText());
+          /* updatint textbox for info display*/
+          if  (this.btn_constructor.isSelected()){
+            this.flds_tb.setText(AddSubApp.getConstructorsText());
+          }
+          else if (this.btn_fields.isSelected()){
+            this.flds_tb.setText(AddSubApp.getFieldsText());
+          }
+          else if (this.btn_methods.isSelected()){
+            this.flds_tb.setText(AddSubApp.getMethodsText());
+          }
+      }
     }//GEN-LAST:event_flds_classnameKeyReleased
 
     private void btn_constructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_constructorMouseClicked
         // set information textbox to display constructor info
-        this.flds_tb.setText(this.ct_text);
+        this.flds_tb.setText(AddSubApp.getConstructorsText());
     }//GEN-LAST:event_btn_constructorMouseClicked
 
     private void btn_fieldsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_fieldsMouseClicked
         // set information textbox to display constructor info
-        this.flds_tb.setText(this.fields_text);
+        this.flds_tb.setText(AddSubApp.getFieldsText());
     }//GEN-LAST:event_btn_fieldsMouseClicked
 
     private void btn_methodsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_methodsMouseClicked
         // set information textbox to display constructor info
-        this.flds_tb.setText(this.methods_text);
+        this.flds_tb.setText(AddSubApp.getMethodsText());
     }//GEN-LAST:event_btn_methodsMouseClicked
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -448,9 +367,7 @@ public class AddSubView extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
-    private Method m[];
-    private Constructor cons[];
-    private Field f[];
+
 
 
 }
