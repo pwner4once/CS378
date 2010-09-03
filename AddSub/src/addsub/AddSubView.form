@@ -22,7 +22,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="mainPanel" min="-2" pref="312" max="-2" attributes="0"/>
+                  <Component id="mainPanel" min="-2" pref="306" max="-2" attributes="0"/>
                   <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Component id="statusPanel" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -63,7 +63,7 @@
                           <Component id="jScrollPane1" pref="472" max="32767" attributes="1"/>
                           <Component id="flds_classname" alignment="0" min="-2" pref="472" max="-2" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace pref="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -108,7 +108,6 @@
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="flds_classnameKeyReleased"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="flds_classnameKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="btn_constructor">
@@ -181,7 +180,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="530" max="32767" attributes="0"/>
+                      <EmptySpace pref="525" max="32767" attributes="0"/>
                       <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>

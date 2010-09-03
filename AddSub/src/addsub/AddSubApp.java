@@ -45,9 +45,13 @@ public class AddSubApp extends SingleFrameApplication {
 
     /**
      * Main method launching the application.
+     *
+     * 1) Output to command line if arguments exists
+     * 2) Else launch the gui
      */
     public static void main(String[] args) {
-      if (args.length > 0){ // System.out.println outputs..
+      if (args.length > 0){
+
         String cls = args[0];
         setClassName(cls);
         System.out.println("class " + cls);
@@ -69,10 +73,16 @@ public class AddSubApp extends SingleFrameApplication {
      */
     public static void setClassName(String s){
         className = s;
-        // process and set all other fields
+        // set corresponding outputs when differnet radio buttons are pushed
         setDisplayFields();
     }
 
+    /**
+     * propagate changes made to the current 'class'
+     * ct_text - displayed when Constructors radio button is checked
+     * fields_text - displayed when Fields radio button is checked
+     * methods_text - displayed when Methods radio button is checked
+     */
     public static void setDisplayFields(){
       try {
         Class m_class = Class.forName(className);
@@ -165,7 +175,7 @@ public class AddSubApp extends SingleFrameApplication {
      * @param s
      * @return
      */
-    public String getClassName(String s){
+    public static String getClassName(){
         return className;
     }
 
@@ -217,7 +227,6 @@ public class AddSubApp extends SingleFrameApplication {
             strBuf.delete(strPos+end-start, strPos+end-start+encodings[i].length());
           }
           str = strBuf.toString();
-
         }
      }
      if (str.length() >= 0) str = str.replaceAll(Pattern.quote("["), "[]");
