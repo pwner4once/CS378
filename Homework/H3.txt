@@ -1,0 +1,45 @@
+Name: Jing Teng         UTEID: jt23322        Class: CS 378 (Software Design)
+Assignment: Homework 3 (MetaModel)
+
+                        Backus-Naur (Normal) Form of Grammars
+           
+/* Start Symbol, Grammar */
+<!-- in example Grammar    => IntExp --> 
+<!-- in example Production => INT or INT "+" or INT "x" or "(" or ")"   -->
+<!-- in example Pattern    => INT    -->
+<Grammar>          := <Production> |                           
+                      <Production> <Grammar>
+                   ;
+<Production>       := <list_whitespaces> <Production_name>
+                      <list_whitespaces> <expression>
+                      <line_ending>
+<Production_name>  := '"' <matching_punctuation>  '"'|           <!-- matching for "(", ")" and etc.. -->
+                      [a-zA-Z]+                                  <!-- regular expression form for matching chars
+                                                                      suppose to match any chars between a-z, A-Z
+                                                                  -->
+                   ;
+<matching_punctuation> := '(' | ')' | '[' | ']' | '{' | '}'
+<list_whitespaces> := " " <list_whitespaces> | ""                <!-- "" is empty string, i.e. no whitespace -->
+<expression>       := <verbs> | <verbs> "|" <expression>         <!-- "+" -->
+<line_ending>      := <list_whitespaces> <EOL> |
+                      <line_ending> <line_ending>
+                   ;
+<verbs>            := '"' <action> '"' |                         <!-- + is matched for action -->
+                      '"' <action> '"' <Production_name> 
+                   ;
+<action>           := <text> |
+                      <text> <list_whitespaces> <action>
+                   ;
+<text>             := [0-9a-zA-Z]+                               <!-- Regular expression form for matching chars.
+                                                                      These are terminals; they terminate the
+                                                                      production process  -->
+<list_whitespaces> := " " |
+                      " " <list_whitespaces>
+                   ;
+<EOL>              := '\n';                                      <!-- can be others depending on specific languge
+                                                                      and etc.. -->
+
+
+*Note:
+  - some infos are infered from Wikipedia.com
+  - the EBNF and BNF grammar are used since the assignment used them in an interchangeable way
